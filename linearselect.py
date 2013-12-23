@@ -14,31 +14,16 @@ def InsertionSort(a, p, r):
 	a[pos] = val
 
 def partition(a, p, r, x):
-	i, j, pos = p+1, r, 0
-
-	while True:
-			while a[i] < x and i < r:
-					i += 1
-			while a[j] > x:
-					j -= 1
-			
-			if a[i] == x:
-					pos = i
-					i += 1
-					continue
-			if a[j] == x:
-					pos = j
-					j -= 1
-					continue
-
-			if i >= j: break
-
-			a[i], a[j] = a[j], a[i]
-
-	a[pos] = a[j]
-	a[j] = x
-
-	return j
+	i, j = p, r
+	while i < j:
+			if a[i] > x:
+					while i < j and a[j] > x:
+							j -= 1
+					if i != j:
+							a[i], a[j] = a[j], a[i]
+							j -= 1
+			i += 1
+	return i-1
 
 def LinearSelect(a, p, r, k):
 	if r-p < 75:
@@ -52,7 +37,7 @@ def LinearSelect(a, p, r, k):
 	x = LinearSelect(a, p, p+(r-p-4)/5, (r-p-4)/10)
 	
 	i = partition(a, p, r, x)
-	j = i - p +1
+	j = i - p + 1
 	
 	if k<j:
 			return LinearSelect(a, p, i, k)
