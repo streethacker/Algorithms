@@ -1,4 +1,4 @@
-#/usr/bin/python
+#!/usr/bin/python
 #-*- coding:utf-8 -*-
 
 def Knapsack(v, w, c, n, m):
@@ -13,11 +13,13 @@ def Knapsack(v, w, c, n, m):
 
 	m[1][c] = m[2][c]
 
-	if c>=w[1]:	m[1][c] = max(m[1][c], m[2][c-w[1]]+v[1])
+	if c>=w[1]:
+			m[1][c] = max(m[1][c], m[2][c-w[1]]+v[1])
 
 def TraceBack(m, w, c, n, x):
 	for i in range(1, n):
-			if m[i][c] == m[i+1][c]:	x[i] = 0
+			if m[i][c] == m[i+1][c]:
+					x[i] = 0
 			else:
 					x[i] = 1
 					c -= w[i]
@@ -28,7 +30,7 @@ if __name__ == "__main__":
 		w = [0, 2, 2, 6, 5, 4]
 		v = [0, 6, 3, 5, 4, 6]
 
-		m = [[0 for i in range(n)] for i in range(c+1)]
+		m = [[0 for i in range(c+1)] for j in range(n+1)]
 
 		x = [0 for i in range(n+1)]
 
@@ -36,5 +38,18 @@ if __name__ == "__main__":
 
 		TraceBack(m, w, c, n, x)
 
-		for item in x:
-				print item,
+		weight, value = 0, 0
+		print "Result Vector:",
+		for i in range(1, len(x)):
+				if x[i] == 1:
+						weight += w[i]
+						value += v[i]
+				print x[i],
+
+		print 
+
+		print "Total Weight:%s" % weight
+		print "Total Value:%s" % value
+
+
+				
